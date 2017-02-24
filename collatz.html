@@ -1,0 +1,52 @@
+<html>
+   <head>
+     <style>
+        .disabled {
+          pointer-events:none;
+          background-color: lightgray;
+        }
+     </style>
+   </head>
+  <body>
+    <input id='collatzCounter' type='button' value="0 to 1000000" />
+    <br />
+    <br />
+    <label>Number: </label>
+    <br />
+    <input id='number' type='number' />
+    <br />
+
+    <label>Iterations: </label>
+    <br />
+    <input id='iterations' class='disabled' type='number' />
+    <br />
+
+    <label>Higher Number: </label>
+    <br />
+    <input id='higher' class='disabled' type='number' />
+    <br />
+
+  </body>
+  <script src='collatz.js'></script>
+  <script>
+    document.getElementById('number').addEventListener("input", function(){
+      var result = collatz(this.value, 1);
+      document.getElementById('number').value = result.number;
+      document.getElementById('iterations').value = result.iterations;
+      document.getElementById('higher').value = result.higher;
+    }, false);
+
+    document.getElementById('collatzCounter').addEventListener("mousedown", function(){
+      this.value = 'Processing ...';
+    }, false);
+
+    document.getElementById('collatzCounter').addEventListener("click", function(){
+        var higher = higherIteration(0, 1000000);
+        console.log(higher);
+        document.getElementById('number').value = higher.number;
+        document.getElementById('iterations').value = higher.iterations;
+        document.getElementById('higher').value = higher.higher;
+        this.value = '0 to 1000000';
+    }, false);
+  </script>
+</body>
